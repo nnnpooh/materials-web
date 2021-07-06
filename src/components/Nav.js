@@ -11,6 +11,9 @@ function Nav() {
         <li>
           <Link to='/form'>Generate Code</Link>
         </li>
+        <li>
+          <Link to='/records'>Records</Link>
+        </li>
       </ul>
     </div>
   );

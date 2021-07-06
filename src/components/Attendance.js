@@ -2,11 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../database';
 import { format } from 'date-fns';
+var _ = require('lodash');
 
 function Attendance() {
   const { code } = useParams();
   const [studentList, setStudentList] = useState([]);
   const timer = useRef(null);
+  const [sortDetails, setSortDetails] = useState({
+    field: 'timerecord',
+    direction: 'asc',
+  });
+
   useEffect(() => {
     async function fetchData() {
       console.log('Fetching Data');
@@ -36,12 +42,38 @@ function Attendance() {
     };
   }, [code]);
 
-  console.log(studentList);
+  const studentListSorted = _.orderBy(
+    studentList,
+    [sortDetails.field],
+    [sortDetails.direction]
+  );
+  //console.log(studentList);
+  //console.log(sortDetails);
   return (
     <div>
-      <h1>Attendance</h1>
+      <h1>Attendance ({studentListSorted.length})</h1>
+      <button
+        onClick={() => {
+          setSortDetails({
+            field: 'timerecord',
+            direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
+          });
+        }}
+      >
+        {sortDetails.field === 'timerecord' ? <b>Time</b> : 'Time'}
+      </button>
+      <button
+        onClick={() => {
+          setSortDetails({
+            field: 'cmu_id',
+            direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
+          });
+        }}
+      >
+        {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
+      </button>
       <ul>
-        {studentList.map((el) => {
+        {studentListSorted.map((el) => {
           return (
             <li key={el.line_id}>
               {el.cmu_id}{' '}

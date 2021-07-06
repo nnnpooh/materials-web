@@ -153,6 +153,7 @@ function CodeForm() {
             id='timestart'
             onChange={handleTimeStart}
             value={timeStart}
+            minDate={new Date()}
           />
         </div>
 
