@@ -3,8 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import supabase from '../database';
 import DateTimePicker from 'react-datetime-picker';
 import { format, add } from 'date-fns';
+import { useHistory } from 'react-router-dom';
 
 function CodeForm() {
+  const history = useHistory();
   const dateNow = new Date();
   const [dataValid, setDataValid] = useState(false);
   const [classInfo, setClassInfo] = useState({
@@ -80,6 +82,16 @@ function CodeForm() {
       },
     ]);
     console.log({ data, error });
+
+    if (!error) {
+      alert('Code Created');
+      classInfo.section = '';
+      classInfo.durationValid = 0;
+      setTimeStart(new Date());
+      history.push('/');
+    } else {
+      alert('Error Creating Code');
+    }
   }
 
   useEffect(() => {
@@ -145,7 +157,7 @@ function CodeForm() {
         </div>
 
         <div>
-          <label htmlFor='durationValid'>Duration</label>
+          <label htmlFor='durationValid'>Duration (Min)</label>
           <input
             id='durationValid'
             type='number'
@@ -168,8 +180,11 @@ function CodeForm() {
         <input type='submit' disabled={!dataValid} />
       </form>
 
-      <p>{classInfo.timeStart}</p>
-      <p>{classInfo.timeEnd}</p>
+      <h2>Time</h2>
+      <p>
+        {classInfo.timeStart} <br />
+        {classInfo.timeEnd}
+      </p>
     </div>
   );
 }

@@ -8,7 +8,13 @@ function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data, error } = await supabase.from('codes').select('*');
+      // const { data, error } = await supabase.from('codes').select('*')
+      const dateNow = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+      const { data, error } = await supabase
+        .from('codes')
+        .select('*')
+        .lt('timestart', dateNow)
+        .gt('timeend', dateNow);
 
       //console.log({ data, error });
       if (!error && data.length > 0) {
