@@ -24,7 +24,7 @@ function SignUp() {
   const session = supabase.auth.session();
   const user = supabase.auth.user();
 
-  console.log({ user, session });
+  //  console.log({ user, session });
   return (
     <div>
       <form onSubmit={handleSubmit}>
