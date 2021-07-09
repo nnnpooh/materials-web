@@ -14,6 +14,12 @@ function Nav() {
         <li>
           <Link to='/records'>Records</Link>
         </li>
+        <li>
+          <Link to='/signup'>Sign Up</Link>
+        </li>
+        <li>
+          <Link to='/signin'>Sign In</Link>
+        </li>
       </ul>
     </div>
   );
