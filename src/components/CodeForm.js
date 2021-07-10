@@ -5,7 +5,8 @@ import DateTimePicker from 'react-datetime-picker';
 import { format, add } from 'date-fns';
 import { useHistory } from 'react-router-dom';
 
-function CodeForm() {
+function CodeForm(props) {
+  //console.log(props);
   const history = useHistory();
   const dateNow = new Date();
   const [dataValid, setDataValid] = useState(false);
@@ -79,6 +80,7 @@ function CodeForm() {
         timestart: classInfo.timeStart,
         timeend: classInfo.timeEnd,
         graded: classInfo.graded,
+        auth_id: props.user.id,
       },
     ]);
     console.log({ data, error });

@@ -14,16 +14,19 @@ function Nav({ user }) {
     }
   };
 
-  const logOutButton = user ? (
+  const logOutLink = user ? (
     <li>
       <span onClick={handleLogOut}>
-        {' '}
-        <a href='#'>Logout </a>
+        <Link to='#'>Logout</Link>
       </span>
     </li>
   ) : (
     <></>
   );
+
+  function protectedLink(user, JSX) {
+    return user ? JSX : <></>;
+  }
 
   return (
     <div>
@@ -31,23 +34,29 @@ function Nav({ user }) {
         <li>
           <Link to='/'>Home</Link>
         </li>
-        {user ? (
-          <>
-            {' '}
-            <li>
-              <Link to='/form'>Generate Code</Link>
-            </li>
-            <li>
-              <Link to='/records'>Records</Link>
-            </li>{' '}
-          </>
-        ) : (
-          <></>
+
+        {protectedLink(
+          user,
+          <li>
+            <Link to='/codeselect'>Code Select</Link>
+          </li>
         )}
-        {/*         <li>
-          <Link to='/signup'>Sign Up</Link>
-        </li>
-       */}
+
+        {protectedLink(
+          user,
+          <li>
+            <Link to='/form'>Generate Code</Link>
+          </li>
+        )}
+
+        {protectedLink(
+          user,
+          <li>
+            <Link to='/records'>Records</Link>
+          </li>
+        )}
+
+        {/*<li><Link to='/signup'>Sign Up</Link></li>*/}
 
         {user ? (
           <></>
@@ -56,7 +65,7 @@ function Nav({ user }) {
             <Link to='/signin'>Sign In</Link>
           </li>
         )}
-        {logOutButton}
+        {logOutLink}
       </ul>
     </div>
   );

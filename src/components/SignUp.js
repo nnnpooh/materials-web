@@ -21,8 +21,8 @@ function SignUp() {
     console.log({ user, session, error });
   }
 
-  const session = supabase.auth.session();
-  const user = supabase.auth.user();
+  //const session = supabase.auth.session();
+  //const user = supabase.auth.user();
 
   //  console.log({ user, session });
   return (

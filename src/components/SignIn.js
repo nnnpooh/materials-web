@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import supabase from '../database';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function SignIn() {
+function SignIn({ user }) {
   let history = useHistory();
+
+  useEffect(() => {
+    //console.log('UseEffect', user);
+    if (user) {
+      history.push('/');
+    }
+  });
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -32,11 +40,11 @@ function SignIn() {
     }
   }
 
-  const session = supabase.auth.session();
-  const user = supabase.auth.user();
-
-  console.log({ user, session });
+  //const session = supabase.auth.session();
+  //const user = supabase.auth.user();
+  //console.log({ user, session });
   //console.log(formData);
+
   return (
     <div>
       <h1>Sign In</h1>

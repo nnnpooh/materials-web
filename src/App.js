@@ -10,12 +10,20 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import supabase from './database';
 import ProtectedRoute from './components/ProtectedRoute';
+import CodeSelect from './components/CodeSelect';
 
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      // console.log('State Changed.');
+    const checkSession = supabase.auth.session();
+    const checkUser = supabase.auth.user();
+    console.log({ checkSession, checkUser });
+    if (checkUser) {
+      setUser(checkUser);
+    }
+
+    const listen = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('State Changed.');
       console.log({ event, session });
       if (event === 'SIGNED_IN') {
         setUser(session.user);
@@ -23,6 +31,12 @@ function App() {
         setUser(null);
       }
     });
+
+    //    console.log({ listen });
+    return () => {
+      console.log('Unsubscribed');
+      listen.data.unsubscribe();
+    };
   }, []);
 
   return (
@@ -40,11 +54,16 @@ function App() {
         <Route path='/signup'>
           <SignUp />
         </Route>
-        <Route path='/signin'>
-          <SignIn />
-        </Route>
 
-        <ProtectedRoute path='/' user={user} component={Home} />
+        <Route
+          path='/signin'
+          render={(props) => <SignIn user={user} {...props} />}
+        />
+
+        <ProtectedRoute path='/codeselect' user={user} component={CodeSelect} />
+        <Route path='/'>
+          <Home />
+        </Route>
       </Switch>
     </Router>
   );
