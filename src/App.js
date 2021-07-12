@@ -11,6 +11,7 @@ import SignIn from './components/SignIn';
 import supabase from './database';
 import ProtectedRoute from './components/ProtectedRoute';
 import CodeSelect from './components/CodeSelect';
+import ClassAttend from './components/ClassAttend';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -61,6 +62,11 @@ function App() {
         />
 
         <ProtectedRoute path='/codeselect' user={user} component={CodeSelect} />
+        <ProtectedRoute
+          path='/classattend'
+          user={user}
+          component={ClassAttend}
+        />
         <Route path='/'>
           <Home />
         </Route>

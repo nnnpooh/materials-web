@@ -56,6 +56,13 @@ function Nav({ user }) {
           </li>
         )}
 
+        {protectedLink(
+          user,
+          <li>
+            <Link to='/classattend'>Class Attendance</Link>
+          </li>
+        )}
+
         {/*<li><Link to='/signup'>Sign Up</Link></li>*/}
 
         {user ? (
