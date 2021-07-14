@@ -10,7 +10,7 @@ function Attendance() {
   const timer = useRef(null);
   const [sortDetails, setSortDetails] = useState({
     field: 'timerecord',
-    direction: 'asc',
+    direction: 'desc',
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Attendance() {
       }
     }
     fetchData();
-    timer.current = setInterval(fetchData, 1000);
+    timer.current = setInterval(fetchData, 2000);
     return () => {
       clearInterval(timer.current);
     };
@@ -52,6 +52,18 @@ function Attendance() {
   return (
     <div>
       <h1>Attendance ({studentListSorted.length})</h1>
+
+      <h1
+        style={{
+          borderStyle: 'dotted',
+          borderColor: 'gray',
+          borderWidth: '2px',
+          borderRadius: '10px',
+          padding: '8px',
+        }}
+      >
+        CODE:{code}
+      </h1>
       <button
         onClick={() => {
           setSortDetails({

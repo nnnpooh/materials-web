@@ -4,7 +4,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome</h1>
-      <img src='https://picsum.photos/600/300'></img>
+      <img src='https://picsum.photos/600/300' alt=''></img>
     </div>
   );
 }

@@ -12,6 +12,7 @@ function ClassAttend({ user }) {
   });
   const [checkins, setCheckins] = useState([]);
 
+  const [editMode, setEditMode] = useState(false);
   const [sortDetails, setSortDetails] = useState({
     field: 'cmu_id',
     direction: 'asc',
@@ -111,7 +112,7 @@ function ClassAttend({ user }) {
 
       codeArray.forEach((el) =>
         tableHeader.push({
-          value: el.timestartdate,
+          value: `${el.timestartdate} (${el.code})`,
         })
       );
 
@@ -129,6 +130,10 @@ function ClassAttend({ user }) {
         checkInArray.forEach((el2) => {
           tableRow.push({
             value: el2.timerecorddate,
+            code: el2.code,
+            line_id: el1.line_id,
+            firstname: el1.firstname,
+            lastname: el1.lastname,
           });
         });
         tableBody.push(tableRow);
@@ -163,6 +168,34 @@ function ClassAttend({ user }) {
     return CSVData;
   }
 
+  async function handleCellClick(col, e) {
+    console.log({ col, e });
+
+    const a = {
+      comb: col.line_id + ':' + col.code,
+      line_id: col.line_id,
+      code: col.code,
+      timerecord: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+    };
+
+    console.log(a);
+
+    const { data, error } = await supabase.from('checkins').insert([
+      {
+        comb: col.line_id + ':' + col.code,
+        line_id: col.line_id,
+        code: col.code,
+        timerecord: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+      },
+    ]);
+
+    if (!error) {
+      alert('Check in!');
+      console.log(data);
+    } else {
+      console.log(error.message);
+    }
+  }
   return (
     <div>
       <h1>Class Attendance</h1>
@@ -186,6 +219,13 @@ function ClassAttend({ user }) {
       >
         {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
       </button>
+      <button
+        onClick={() => {
+          setEditMode((prev) => !prev);
+        }}
+      >
+        Edit
+      </button>
       <ul></ul>
       {checkins.length > 0 ? (
         <>
@@ -206,7 +246,15 @@ function ClassAttend({ user }) {
                 <tr key={idr}>
                   {row.map((col, idc) => (
                     <td style={{ border: '1px solid black' }} key={idc}>
-                      {col.value}
+                      {!editMode ? (
+                        col.value
+                      ) : col.value ? (
+                        col.value
+                      ) : (
+                        <button onClick={(e) => handleCellClick(col, e)}>
+                          Check In
+                        </button>
+                      )}
                     </td>
                   ))}
                 </tr>
