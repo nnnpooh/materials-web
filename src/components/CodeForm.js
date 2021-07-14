@@ -4,8 +4,6 @@ import supabase from '../database';
 import DateTimePicker from 'react-datetime-picker';
 import { format, add } from 'date-fns';
 import { useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 function CodeForm(props) {
   //console.log(props);
   const history = useHistory();
@@ -105,29 +103,9 @@ function CodeForm(props) {
     }
   }, [classInfo, timeStart]);
 
-  function handleSubmit2() {
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => alert('Click Yes'),
-        },
-        {
-          label: 'No',
-          onClick: () => alert('Click No'),
-        },
-      ],
-    });
-  }
-
   // console.log(classInfo);
   return (
     <div>
-      {/*  <div className='container'>
-        <button onClick={handleSubmit2}>Confirm dialog</button>
-      </div> */}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='classId'>Class ID</label>

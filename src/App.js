@@ -41,37 +41,47 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Nav user={user} />
+    <div className='container'>
+      <Router>
+        <div className='bg-gray-800'>
+          <div className='px-6 text-gray-300'>
+            <Nav user={user} />
+          </div>
+        </div>
 
-      <Switch>
-        <ProtectedRoute path='/form' user={user} component={CodeForm} />
-        <ProtectedRoute
-          path='/attend/:code'
-          user={user}
-          component={Attendance}
-        />
-        <ProtectedRoute path='/records' user={user} component={Records} />
-        <Route path='/signup'>
-          <SignUp />
-        </Route>
+        <Switch>
+          <ProtectedRoute path='/form' user={user} component={CodeForm} />
+          <ProtectedRoute
+            path='/attend/:code'
+            user={user}
+            component={Attendance}
+          />
+          <ProtectedRoute path='/records' user={user} component={Records} />
+          <Route path='/signup'>
+            <SignUp />
+          </Route>
 
-        <Route
-          path='/signin'
-          render={(props) => <SignIn user={user} {...props} />}
-        />
+          <Route
+            path='/signin'
+            render={(props) => <SignIn user={user} {...props} />}
+          />
 
-        <ProtectedRoute path='/codeselect' user={user} component={CodeSelect} />
-        <ProtectedRoute
-          path='/classattend'
-          user={user}
-          component={ClassAttend}
-        />
-        <Route path='/'>
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+          <ProtectedRoute
+            path='/codeselect'
+            user={user}
+            component={CodeSelect}
+          />
+          <ProtectedRoute
+            path='/classattend'
+            user={user}
+            component={ClassAttend}
+          />
+          <Route path='/'>
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

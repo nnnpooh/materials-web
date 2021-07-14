@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.2.0",
     "@supabase/supabase-js": "^1.18.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -11,7 +12,6 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
-    "react-confirm-alert": "^2.7.0",
     "react-csv": "^2.0.3",
     "react-datetime-picker": "^3.3.0",
     "react-dom": "^17.0.2",
@@ -21,9 +21,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "set PORT=3001 && craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,5 +43,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.36",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
   }
 }
