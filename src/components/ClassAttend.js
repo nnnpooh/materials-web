@@ -229,9 +229,7 @@ function ClassAttend({ user }) {
       <ul></ul>
       {checkins.length > 0 ? (
         <>
-          <table
-            style={{ border: '1px solid black', borderCollapse: 'collapse' }}
-          >
+          <table className='table-auto'>
             <thead>
               <tr>
                 {tableHeader.map((el) => (

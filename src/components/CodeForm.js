@@ -103,90 +103,128 @@ function CodeForm(props) {
     }
   }, [classInfo, timeStart]);
 
+  const divStyle = 'mt-3';
+  const inputStyle =
+    'appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline';
+  const labelStyle = 'block text-gray-700 text-sm font-bold';
+  const buttonActiveStyle =
+    'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline mt-4';
+  const buttonDisabledStyle =
+    'bg-gray-300 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline mt-4';
   // console.log(classInfo);
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='classId'>Class ID</label>
-          <input
-            id='classId'
-            type='text'
-            onChange={handleClassInfo}
-            value={classInfo.classId}
-          ></input>
-        </div>
+      <h1>Generate Code</h1>
+      <div className='max-w-md shadow-md rounded-lg bg-white p-4 mt-2'>
+        <form onSubmit={handleSubmit} noValidate>
+          <div>
+            <label className={labelStyle} htmlFor='classId'>
+              Class ID
+            </label>
+            <input
+              className={inputStyle}
+              id='classId'
+              type='text'
+              onChange={handleClassInfo}
+              value={classInfo.classId}
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor='yearStr'>Year</label>
-          <input
-            id='yearStr'
-            type='text'
-            onChange={handleClassInfo}
-            value={classInfo.yearStr}
-          ></input>
-        </div>
+          <div className={divStyle}>
+            <label className={labelStyle} htmlFor='yearStr'>
+              Year
+            </label>
+            <input
+              className={inputStyle}
+              id='yearStr'
+              type='text'
+              onChange={handleClassInfo}
+              value={classInfo.yearStr}
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor='semester'>Semester</label>
-          <input
-            id='semester'
-            type='text'
-            onChange={handleClassInfo}
-            value={classInfo.semester}
-          ></input>
-        </div>
+          <div className={divStyle}>
+            <label className={labelStyle} htmlFor='semester'>
+              Semester
+            </label>
+            <input
+              className={inputStyle}
+              id='semester'
+              type='text'
+              onChange={handleClassInfo}
+              value={classInfo.semester}
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor='section'>Section</label>
-          <input
-            id='section'
-            type='text'
-            onChange={handleClassInfo}
-            value={classInfo.section}
-            placeholder='Section'
-          ></input>
-        </div>
+          <div className={divStyle}>
+            <label className={labelStyle} htmlFor='section'>
+              Section
+            </label>
+            <input
+              className={inputStyle}
+              id='section'
+              type='text'
+              onChange={handleClassInfo}
+              value={classInfo.section}
+              placeholder='Section'
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor='timestart'>Time Start</label>
-          <DateTimePicker
-            id='timestart'
-            onChange={handleTimeStart}
-            value={timeStart}
-            minDate={new Date()}
+          <div className={divStyle}>
+            <label className={labelStyle} htmlFor='timestart'>
+              Time Start
+            </label>
+            <DateTimePicker
+              className='appearance-none  rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='timestart'
+              onChange={handleTimeStart}
+              value={timeStart}
+              minDate={new Date()}
+            />
+          </div>
+
+          <div className={divStyle}>
+            <label className={labelStyle} htmlFor='durationValid'>
+              Duration (Min)
+            </label>
+            <input
+              className={inputStyle}
+              id='durationValid'
+              type='number'
+              value={classInfo.durationValid}
+              onChange={handleClassInfo}
+            />
+          </div>
+
+          <div className={divStyle}>
+            <label className={labelStyle} htmlFor='graded'>
+              Graded
+            </label>
+            <select
+              className={inputStyle}
+              id='graded'
+              onChange={handleClassInfo}
+              value={classInfo.graded}
+            >
+              <option value='true'>Graded</option>
+              <option value='false'>Not Graded</option>
+            </select>
+          </div>
+
+          <input
+            className={dataValid ? buttonActiveStyle : buttonDisabledStyle}
+            type='submit'
+            disabled={!dataValid}
           />
-        </div>
-
-        <div>
-          <label htmlFor='durationValid'>Duration (Min)</label>
-          <input
-            id='durationValid'
-            type='number'
-            value={classInfo.durationValid}
-            onChange={handleClassInfo}
-          />
-        </div>
-
-        <div>
-          <select
-            id='graded'
-            onChange={handleClassInfo}
-            value={classInfo.graded}
-          >
-            <option value='true'>Graded</option>
-            <option value='false'>Not Graded</option>
-          </select>
-        </div>
-
-        <input type='submit' disabled={!dataValid} />
-      </form>
-
-      <h2>Time</h2>
-      <p>
-        {classInfo.timeStart} <br />
-        {classInfo.timeEnd}
-      </p>
+        </form>
+      </div>
+      <h1>Time</h1>
+      <div className='bg-white rounded-lg shadow-md max-w-md p-4 text-gray-700'>
+        <p>
+          {classInfo.timeStart} <br />
+          {classInfo.timeEnd}
+        </p>
+      </div>
     </div>
   );
 }

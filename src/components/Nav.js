@@ -30,7 +30,7 @@ function Nav({ user }) {
 
   return (
     <div>
-      <ul className='flex space-x-4  items-center h-10 '>
+      <ul className='flex space-x-6 items-center h-10 text-sm text-center py-6'>
         <li>
           <Link to='/'>Home</Link>
         </li>

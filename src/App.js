@@ -41,14 +41,14 @@ function App() {
   }, []);
 
   return (
-    <div className='container'>
-      <Router>
-        <div className='bg-gray-800'>
-          <div className='px-6 text-gray-300'>
-            <Nav user={user} />
-          </div>
+    <Router>
+      <div className='bg-gray-800'>
+        <div className='container mx-auto text-gray-300 px-6'>
+          <Nav user={user} />
         </div>
+      </div>
 
+      <div className='container mx-auto px-6'>
         <Switch>
           <ProtectedRoute path='/form' user={user} component={CodeForm} />
           <ProtectedRoute
@@ -80,8 +80,8 @@ function App() {
             <Home />
           </Route>
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 
