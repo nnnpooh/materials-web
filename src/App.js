@@ -43,7 +43,7 @@ function App() {
   return (
     <Router>
       <nav className='bg-gray-800'>
-        <div className='container mx-auto text-gray-300 px-6'>
+        <div className='text-gray-300 mx-6'>
           <Nav user={user} />
         </div>
       </nav>
