@@ -51,20 +51,18 @@ function Attendance() {
   //console.log(sortDetails);
   return (
     <div>
-      <h1>Attendance ({studentListSorted.length})</h1>
+      <div className='flex mt-4 items-center space-x-2'>
+        <div className='text-2xl'>Attendance</div>
+        <div className='rounded-full bg-gray-400 px-2 py-1 text-white align-middle'>
+          {studentListSorted.length}
+        </div>
+      </div>
 
-      <h1
-        style={{
-          borderStyle: 'dotted',
-          borderColor: 'gray',
-          borderWidth: '2px',
-          borderRadius: '10px',
-          padding: '8px',
-        }}
-      >
+      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-500 my-4 text-center'>
         CODE:{code}
-      </h1>
+      </div>
       <button
+        className='bg-gray-200 px-2 py-1 rounded-lg mr-1 w-16'
         onClick={() => {
           setSortDetails({
             field: 'timerecord',
@@ -75,6 +73,7 @@ function Attendance() {
         {sortDetails.field === 'timerecord' ? <b>Time</b> : 'Time'}
       </button>
       <button
+        className='bg-gray-200 px-2 py-1 rounded-lg w-16'
         onClick={() => {
           setSortDetails({
             field: 'cmu_id',
@@ -84,7 +83,7 @@ function Attendance() {
       >
         {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
       </button>
-      <ul>
+      <ul className='mt-3 text-lg'>
         {studentListSorted.map((el) => {
           return (
             <li key={el.line_id}>

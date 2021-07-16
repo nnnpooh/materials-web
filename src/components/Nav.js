@@ -15,9 +15,9 @@ function Nav({ user }) {
   };
 
   const logOutLink = user ? (
-    <span onClick={handleLogOut}>
+    <div className='hover:text-white' onClick={handleLogOut}>
       <Link to='#'>Logout</Link>
-    </span>
+    </div>
   ) : (
     <></>
   );
@@ -26,12 +26,14 @@ function Nav({ user }) {
     return user ? JSX : <></>;
   }
 
+  const navItemStyle = 'hover:bg-gray-600 p-4';
+
   return (
-    <div className='flex justify-between'>
+    <div className='flex justify-between items-center text-gray-300 text-sm'>
       {/* Parimary Nav */}
-      <div className='flex'>
+      <div className='flex items-center'>
         {/* Logo */}
-        <div className='mr-4'>
+        <div className='mr-6 hover:text-white'>
           <Link to='/'>
             <svg
               class='w-6 h-6'
@@ -50,41 +52,29 @@ function Nav({ user }) {
           </Link>
         </div>
         {/* Links */}
-        <div className='flex space-x-6'>
-          {protectedLink(
-            user,
-            <div>
-              <Link to='/codeselect'>Code Select</Link>
-            </div>
-          )}
+        <div className='flex space-x-4 mr-4 items-center text-center'>
+          <div className={navItemStyle}>
+            {protectedLink(user, <Link to='/codeselect'>Code Select</Link>)}
+          </div>
 
-          {protectedLink(
-            user,
-            <div>
-              <Link to='/form'>Create Code</Link>
-            </div>
-          )}
+          <div className={navItemStyle}>
+            {protectedLink(user, <Link to='/form'>Create Code</Link>)}
+          </div>
 
-          {protectedLink(
-            user,
-            <div>
-              <Link to='/records'>Records</Link>
-            </div>
-          )}
+          <div className={navItemStyle}>
+            {protectedLink(user, <Link to='/records'>Records</Link>)}
+          </div>
 
-          {protectedLink(
-            user,
-            <div>
-              <Link to='/classattend'>Attendance</Link>
-            </div>
-          )}
+          <div className={navItemStyle}>
+            {protectedLink(user, <Link to='/classattend'>Attendance</Link>)}
+          </div>
 
           {/*<li><Link to='/signup'>Sign Up</Link></li>*/}
 
           {user ? (
             <></>
           ) : (
-            <div>
+            <div className={navItemStyle}>
               <Link to='/signin'>Sign In</Link>
             </div>
           )}

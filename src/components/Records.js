@@ -42,9 +42,10 @@ function Records() {
       {activeCodesSorted.map((el) => {
         return (
           <div key={el.code}>
-            <Link to={`/attend/${el.code}`}>{el.code}</Link>
-
-            <ul>
+            <div className='text-lg text-blue-600 mt-2 hover:text-blue-900'>
+              <Link to={`/attend/${el.code}`}>{el.code}</Link>
+            </div>
+            <ul className='border rounded-lg p-4 bg-white'>
               <li>
                 Class: {el.classid} {el.yearstr}-{el.semester}
               </li>
