@@ -42,11 +42,11 @@ function App() {
 
   return (
     <Router>
-      <div className='bg-gray-800'>
+      <nav className='bg-gray-800'>
         <div className='container mx-auto text-gray-300 px-6'>
           <Nav user={user} />
         </div>
-      </div>
+      </nav>
 
       <div className='container mx-auto px-6'>
         <Switch>

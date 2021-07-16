@@ -15,11 +15,11 @@ function Nav({ user }) {
   };
 
   const logOutLink = user ? (
-    <li>
+    <div>
       <span onClick={handleLogOut}>
         <Link to='#'>Logout</Link>
       </span>
-    </li>
+    </div>
   ) : (
     <></>
   );
@@ -30,37 +30,37 @@ function Nav({ user }) {
 
   return (
     <div>
-      <ul className='flex space-x-6 items-center h-10 text-sm text-center py-6'>
-        <li>
+      <div className='flex space-x-6 items-center text-sm text-center'>
+        <div className='bg-red-300 p-4'>
           <Link to='/'>Home</Link>
-        </li>
+        </div>
 
         {protectedLink(
           user,
-          <li>
+          <div>
             <Link to='/codeselect'>Code Select</Link>
-          </li>
+          </div>
         )}
 
         {protectedLink(
           user,
-          <li>
+          <div>
             <Link to='/form'>Generate Code</Link>
-          </li>
+          </div>
         )}
 
         {protectedLink(
           user,
-          <li>
+          <div>
             <Link to='/records'>Records</Link>
-          </li>
+          </div>
         )}
 
         {protectedLink(
           user,
-          <li>
+          <div>
             <Link to='/classattend'>Class Attendance</Link>
-          </li>
+          </div>
         )}
 
         {/*<li><Link to='/signup'>Sign Up</Link></li>*/}
@@ -68,12 +68,12 @@ function Nav({ user }) {
         {user ? (
           <></>
         ) : (
-          <li>
+          <div>
             <Link to='/signin'>Sign In</Link>
-          </li>
+          </div>
         )}
         {logOutLink}
-      </ul>
+      </div>
     </div>
   );
 }
