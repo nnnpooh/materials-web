@@ -46,22 +46,37 @@ function SignIn({ user }) {
   //console.log(formData);
 
   return (
-    <div>
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='flex flex-col items-center justify-center'>
+      <h1 className='text-2xl mt-4'>Sign In</h1>
+      <form
+        onSubmit={handleSubmit}
+        className='mt-4 flex flex-col border bg-white rounded-xl p-6 items-center'
+      >
+        <label htmlFor='text' className='w-full text-sm text-gray-400'>
+          Email
+        </label>
         <input
+          className='border-gray-200 border rounded p-2 focus:outline-none focus:ring focus:border-blue-300'
           type='text'
           id='email'
           value={formData.email}
           onChange={handleChange}
         ></input>
+
+        <label htmlFor='password' className='mt-4 w-full text-sm text-gray-400'>
+          Password
+        </label>
         <input
+          className='border-gray-200 border rounded p-2 focus:outline-none focus:ring focus:border-blue-300'
           type='password'
           id='password'
           value={formData.password}
           onChange={handleChange}
         ></input>
-        <input type='submit' />
+        <input
+          type='submit'
+          className='bg-blue-400 text-white hover:bg-blue-600 mt-6 text-sm rounded px-2 py-1'
+        />
       </form>
       {formData.error ? formData.error.message : null}
     </div>

@@ -43,12 +43,12 @@ function App() {
   return (
     <Router>
       <nav className='bg-gray-800'>
-        <div className='container mx-auto px-6'>
+        <div className='px-6 mx-auto'>
           <Nav user={user} />
         </div>
       </nav>
 
-      <div className='container mx-auto px-6'>
+      <div className=' mx-auto h-screen'>
         <Switch>
           <ProtectedRoute path='/form' user={user} component={CodeForm} />
           <ProtectedRoute

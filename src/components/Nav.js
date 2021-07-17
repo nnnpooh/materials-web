@@ -36,16 +36,16 @@ function Nav({ user }) {
         <div className='mr-6 hover:text-white'>
           <Link to='/'>
             <svg
-              class='w-6 h-6'
+              className='w-6 h-6'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
               xmlns='http://www.w3.org/2000/svg'
             >
               <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                stroke-width='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
                 d='M12 19l9 2-9-18-9 18 9-2zm0 0v-8'
               ></path>
             </svg>
@@ -53,21 +53,34 @@ function Nav({ user }) {
         </div>
         {/* Links */}
         <div className='flex space-x-4 mr-4 items-center text-center'>
-          <div className={navItemStyle}>
-            {protectedLink(user, <Link to='/codeselect'>Code Select</Link>)}
-          </div>
+          {protectedLink(
+            user,
+            <div className={navItemStyle}>
+              <Link to='/codeselect'>Code Select</Link>{' '}
+            </div>
+          )}
 
-          <div className={navItemStyle}>
-            {protectedLink(user, <Link to='/form'>Create Code</Link>)}
-          </div>
+          {protectedLink(
+            user,
+            <div className={navItemStyle}>
+              <Link to='/form'>Create Code</Link>{' '}
+            </div>
+          )}
 
-          <div className={navItemStyle}>
-            {protectedLink(user, <Link to='/records'>Records</Link>)}
-          </div>
+          {protectedLink(
+            user,
+            <div className={navItemStyle}>
+              <Link to='/records'>Records</Link>{' '}
+            </div>
+          )}
 
-          <div className={navItemStyle}>
-            {protectedLink(user, <Link to='/classattend'>Attendance</Link>)}
-          </div>
+          {protectedLink(
+            user,
+            <div className={navItemStyle}>
+              {' '}
+              <Link to='/classattend'>Attendance</Link>{' '}
+            </div>
+          )}
 
           {/*<li><Link to='/signup'>Sign Up</Link></li>*/}
 
