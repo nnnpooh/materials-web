@@ -58,7 +58,7 @@ function Attendance() {
         </div>
       </div>
 
-      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-500 my-4 text-center'>
+      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-400 my-4 text-center'>
         CODE:{code}
       </div>
       <button

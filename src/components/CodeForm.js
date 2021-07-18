@@ -222,7 +222,7 @@ function CodeForm(props) {
       </form>
 
       <h1 className='text-2xl mt-4'>Time</h1>
-      <div className='bg-white rounded-lg shadow-md max-w-md p-4 text-gray-700'>
+      <div className='bg-white rounded-lg p-4 text-gray-700 border border-gray-200'>
         <p>
           {classInfo.timeStart} <br />
           {classInfo.timeEnd}
