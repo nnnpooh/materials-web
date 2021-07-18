@@ -50,7 +50,7 @@ function SignIn({ user }) {
       <h1 className='text-2xl mt-4'>Sign In</h1>
       <form
         onSubmit={handleSubmit}
-        className='mt-4 flex flex-col border bg-white rounded-xl p-6 items-center'
+        className='mt-4 flex flex-col border bg-white rounded-xl p-6 '
       >
         <label htmlFor='text' className='w-full text-sm text-gray-400'>
           Email
@@ -75,7 +75,7 @@ function SignIn({ user }) {
         ></input>
         <input
           type='submit'
-          className='bg-blue-400 text-white hover:bg-blue-600 mt-6 text-sm rounded px-2 py-1'
+          className='bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded focus:outline-none focus:shadow-outline mt-6'
         />
       </form>
       {formData.error ? formData.error.message : null}
