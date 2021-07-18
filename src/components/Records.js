@@ -37,9 +37,9 @@ function Records() {
   const activeCodesSorted = _.orderBy(activeCodes, ['timeend'], ['desc']);
 
   return (
-    <div className='flex flex-col  items-center'>
-      <h1>Records</h1>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3'>
+    <div className='flex flex-col items-center'>
+      <h1 className='text-2xl mt-4'>Records</h1>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-6 gap-3'>
         {activeCodesSorted.map((el) => {
           return <CardCode key={el.code} data={el} />;
         })}

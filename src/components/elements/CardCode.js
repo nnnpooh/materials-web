@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function CardCode({ data: el }) {
   return (
     <div key={el.code}>
-      <ul className='border rounded-lg p-4 bg-white'>
+      <ul className='border rounded-lg p-6 bg-white'>
         <Link className='anchor' to={`/attend/${el.code}`}>
           {el.code}
         </Link>

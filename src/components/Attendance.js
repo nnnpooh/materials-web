@@ -50,53 +50,62 @@ function Attendance() {
   //console.log(studentList);
   //console.log(sortDetails);
   return (
-    <div>
-      <div className='flex mt-4 items-center space-x-2'>
-        <div className='text-2xl'>Attendance</div>
-        <div className='rounded-full bg-gray-400 px-2 py-1 text-white align-middle'>
+    <div className='flex items-center flex-col'>
+      <div className='flex mt-4'>
+        <h1 className='text-2xl'>Attendance</h1>
+        <div className='mx-2 rounded-full bg-gray-400 px-2 py-1 text-white align-middle'>
           {studentListSorted.length}
         </div>
       </div>
 
-      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-400 my-4 text-center'>
+      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-400 my-4 text-center w-96'>
         CODE:{code}
       </div>
-      <button
-        className='bg-gray-200 px-2 py-1 rounded-lg mr-1 w-16'
-        onClick={() => {
-          setSortDetails({
-            field: 'timerecord',
-            direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
-          });
-        }}
-      >
-        {sortDetails.field === 'timerecord' ? <b>Time</b> : 'Time'}
-      </button>
-      <button
-        className='bg-gray-200 px-2 py-1 rounded-lg w-16'
-        onClick={() => {
-          setSortDetails({
-            field: 'cmu_id',
-            direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
-          });
-        }}
-      >
-        {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
-      </button>
-      <ul className='mt-3 text-lg'>
-        {studentListSorted.map((el) => {
-          return (
-            <li key={el.line_id}>
-              {el.cmu_id}{' '}
-              <b>
-                {el.firstname} {el.lastname}
-              </b>
-              {' @'}
-              {format(el.timerecord, 'HH:mm')}
-            </li>
-          );
-        })}
-      </ul>
+
+      <div className='border border-gray-200 rounded-lg bg-white p-6'>
+        <div className='flex'>
+          <button
+            className='bg-gray-200 px-2 py-1 rounded-lg mr-1 w-16'
+            onClick={() => {
+              setSortDetails({
+                field: 'timerecord',
+                direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
+              });
+            }}
+          >
+            {sortDetails.field === 'timerecord' ? <b>Time</b> : 'Time'}
+          </button>
+          <button
+            className='bg-gray-200 px-2 py-1 rounded-lg w-16'
+            onClick={() => {
+              setSortDetails({
+                field: 'cmu_id',
+                direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
+              });
+            }}
+          >
+            {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
+          </button>
+        </div>
+
+        <div className='grid grid-cols-4 gap-x-3 gap-y-1 mt-4'>
+          {studentListSorted.map((el) => {
+            return (
+              <div key={el.line_id} className='contents'>
+                <div className='col-span-1'>{el.cmu_id}</div>
+                <div className='col-span-2 font-bold'>
+                  {el.firstname} {el.lastname}
+                </div>
+                <div className='col-span-1'>
+                  <span className='bg-gray-400 text-white text-sm rounded-full px-2  w-14'>
+                    {format(el.timerecord, 'HH:mm')}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

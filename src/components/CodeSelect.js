@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import supabase from '../database';
 import { format } from 'date-fns';
-import { Link } from 'react-router-dom';
+import CardCode from './elements/CardCode';
 var _ = require('lodash');
 
 function CodeSelect() {
@@ -54,50 +54,20 @@ function CodeSelect() {
 
   //console.log({ activeCodes });
   return (
-    <div>
-      <h1>Active Codes</h1>
+    <div className='flex flex-col items-center'>
+      <h1 className='text-2xl mt-4'>Active Codes</h1>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-6 gap-3'>
+        {activeCodesSorted.map((el) => {
+          return <CardCode key={el.code} data={el} />;
+        })}
+      </div>
 
-      {activeCodesSorted.map((el) => {
-        return (
-          <div key={el.code}>
-            <Link to={`/attend/${el.code}`}>{el.code}</Link>
-
-            <ul>
-              <li>
-                Class: {el.classid} {el.yearstr}-{el.semester}
-              </li>
-              <li>Section: {el.section}</li>
-              <li>Graded: {el.graded ? 'Yes' : 'No'}</li>
-              <li>
-                Time Start: {format(el.timestart, 'EEE yyyy-MM-dd HH:mm')}
-              </li>
-              <li>Time End:{format(el.timeend, 'EEE yyyy-MM-dd HH:mm')}</li>
-            </ul>
-          </div>
-        );
-      })}
-
-      <h1>Future Codes</h1>
-
-      {futureCodesSorted.map((el) => {
-        return (
-          <div key={el.code}>
-            <Link to={`/attend/${el.code}`}>{el.code}</Link>
-
-            <ul>
-              <li>
-                Class: {el.classid} {el.yearstr}-{el.semester}
-              </li>
-              <li>Section: {el.section}</li>
-              <li>Graded: {el.graded ? 'Yes' : 'No'}</li>
-              <li>
-                Time Start: {format(el.timestart, 'EEE yyyy-MM-dd HH:mm')}
-              </li>
-              <li>Time End:{format(el.timeend, 'EEE yyyy-MM-dd HH:mm')}</li>
-            </ul>
-          </div>
-        );
-      })}
+      <h1 className='text-2xl mt-4'>Future Codes</h1>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-6 gap-3'>
+        {futureCodesSorted.map((el) => {
+          return <CardCode key={el.code} data={el} />;
+        })}
+      </div>
     </div>
   );
 }

@@ -196,79 +196,117 @@ function ClassAttend({ user }) {
       console.log(error.message);
     }
   }
+
+  const inputStyle =
+    'appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300';
+  const labelStyle = 'text-sm text-gray-400';
+  const buttonActiveStyle =
+    'bg-blue-400 hover:bg-blue-700 text-white py-1 px-4 rounded focus:outline-none focus:shadow-outline';
+  const buttonDisabledStyle =
+    'bg-gray-300 text-white py-1 px-4 rounded focus:outline-none focus:shadow-outline';
+
   return (
-    <div>
-      <h1>Class Attendance</h1>
-      <select id='classcode' onChange={handleChange} value={formData.classcode}>
-        <option disabled value={''}></option>
-        {classCodes.map((el) => {
-          return (
-            <option key={el.classcode} value={el.classcode}>
-              {el.classcode}
-            </option>
-          );
-        })}
-      </select>
-      <button
-        onClick={() => {
-          setSortDetails({
-            field: 'cmu_id',
-            direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
-          });
-        }}
+    <div className='flex flex-col items-center'>
+      <h1 className='text-2xl mt-4'>Class Attendance</h1>
+      <div className='mt-4 flex items-center space-x-3'>
+        <label className={labelStyle} htmlFor='classcode'>
+          Class ID
+        </label>
+        <select
+          className={inputStyle}
+          id='classcode'
+          onChange={handleChange}
+          value={formData.classcode}
+        >
+          <option disabled value={''}></option>
+          {classCodes.map((el) => {
+            return (
+              <option key={el.classcode} value={el.classcode}>
+                {el.classcode}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
+      <div
+        className={`${
+          checkins.length > 0 ? '' : 'hidden'
+        } mt-4 border border-gray-200 p-4 rounded-lg bg-white`}
       >
-        {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
-      </button>
-      <button
-        onClick={() => {
-          setEditMode((prev) => !prev);
-        }}
-      >
-        Edit
-      </button>
-      <ul></ul>
-      {checkins.length > 0 ? (
-        <>
-          <table className='table-auto'>
-            <thead>
-              <tr>
-                {tableHeader.map((el) => (
-                  <th style={{ border: '1px solid black' }} key={el.value}>
-                    {el.value}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {tableBody.map((row, idr) => (
-                <tr key={idr}>
-                  {row.map((col, idc) => (
-                    <td style={{ border: '1px solid black' }} key={idc}>
-                      {!editMode ? (
-                        col.value
-                      ) : col.value ? (
-                        col.value
-                      ) : (
-                        <button onClick={(e) => handleCellClick(col, e)}>
-                          Check In
-                        </button>
-                      )}
-                    </td>
+        <div className='flex space-x-1'>
+          <button
+            className={buttonActiveStyle}
+            onClick={() => {
+              setSortDetails({
+                field: 'cmu_id',
+                direction: sortDetails.direction === 'asc' ? 'desc' : 'asc',
+              });
+            }}
+          >
+            {sortDetails.field === 'cmu_id' ? <b>ID</b> : 'ID'}
+          </button>
+          <button
+            className={editMode ? buttonActiveStyle : buttonDisabledStyle}
+            onClick={() => {
+              setEditMode((prev) => !prev);
+            }}
+          >
+            Edit
+          </button>
+        </div>
+        {checkins.length > 0 ? (
+          <>
+            <table className='table-auto my-2'>
+              <thead>
+                <tr>
+                  {tableHeader.map((el) => (
+                    <th
+                      className='border border-gray-300 p-1 bg-gray-400 text-white'
+                      key={el.value}
+                    >
+                      {el.value}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <CSVLink
-            data={getCSVData(tableHeader, tableBody)}
-            filename={'attendance.csv'}
-          >
-            Download CSV
-          </CSVLink>
-        </>
-      ) : (
-        <></>
-      )}
+              </thead>
+              <tbody>
+                {tableBody.map((row, idr) => (
+                  <tr key={idr}>
+                    {row.map((col, idc) => (
+                      <td
+                        className='border border-gray-300 p-1 text-center'
+                        key={idc}
+                      >
+                        {!editMode ? (
+                          col.value
+                        ) : col.value ? (
+                          col.value
+                        ) : (
+                          <button
+                            className={buttonActiveStyle}
+                            onClick={(e) => handleCellClick(col, e)}
+                          >
+                            Check In
+                          </button>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <CSVLink
+              data={getCSVData(tableHeader, tableBody)}
+              filename={'attendance.csv'}
+            >
+              <span className='anchor'> Download CSV </span>
+            </CSVLink>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }

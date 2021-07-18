@@ -89,7 +89,7 @@ function CodeForm(props) {
       classInfo.section = '';
       classInfo.durationValid = 0;
       setTimeStart(new Date());
-      history.push('/');
+      history.push('/codeselect');
     } else {
       alert('Error Creating Code');
     }
