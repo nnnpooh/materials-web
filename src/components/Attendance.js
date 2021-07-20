@@ -8,6 +8,7 @@ function Attendance() {
   const { code } = useParams();
   const [studentList, setStudentList] = useState([]);
   const timer = useRef(null);
+  const [warning, setWarning] = useState('');
   const [sortDetails, setSortDetails] = useState({
     field: 'timerecord',
     direction: 'desc',
@@ -36,7 +37,16 @@ function Attendance() {
       }
     }
     fetchData();
-    timer.current = setInterval(fetchData, 2000);
+    let startTime = new Date().getTime();
+    timer.current = setInterval(function () {
+      fetchData();
+      const timeOutMin = 10;
+      if (new Date().getTime() - startTime > timeOutMin * 60 * 1000) {
+        clearInterval(timer.current);
+        setWarning('Live update timeout. Please refresh the page');
+        return;
+      }
+    }, 1000);
     return () => {
       clearInterval(timer.current);
     };
@@ -61,6 +71,14 @@ function Attendance() {
       <div className='border rounded-lg p-4 text-4xl text-white bg-blue-400 my-4 text-center w-96'>
         CODE:{code}
       </div>
+
+      {warning ? (
+        <div className='text-white text-sm bg-red-400 rounded px-2 mb-2'>
+          {warning}
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div className='border border-gray-200 rounded-lg bg-white p-6'>
         <div className='flex'>

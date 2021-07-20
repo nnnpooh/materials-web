@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import supabase from '../database';
 import { format } from 'date-fns';
 import { CSVLink } from 'react-csv';
@@ -61,45 +61,46 @@ function ClassAttend({ user }) {
     setClassCode(classCodesFiltered);
   }, [classCodes, formData.classcode]);
 
+  async function fetchCheckins() {
+    const { data: dataCheckins, error: errorCheckins } = await supabase
+      .from('checkins_users_details_pivot')
+      .select('*')
+      .eq('classcode', classCode.classcode);
+
+    if (!errorCheckins) {
+      let objTemplate = {};
+      Object.keys(classCode.jsondata).forEach((key) => {
+        objTemplate[key] = null;
+      });
+
+      const dataCheckinsMap = dataCheckins.map((el) => {
+        const jsonDataFilled = { ...objTemplate, ...el.jsondata };
+        const keys = Object.keys(jsonDataFilled);
+        let values = Object.values(jsonDataFilled);
+        let arr = [];
+        for (let i = 0; i < keys.length; i++) {
+          arr.push({
+            code: keys[i],
+            codetimestart: new Date(classCode.jsondata[keys[i]]),
+            timerecord: values[i] ? new Date(values[i]) : null,
+            timerecorddate: values[i]
+              ? format(new Date(values[i]), 'MM/dd HH:mm')
+              : null,
+          });
+        }
+        arr = _.orderBy(arr, ['codetimestart'], ['asc']);
+        return { ...el, checkinarray: arr, jsondatafill: jsonDataFilled };
+      });
+
+      setCheckins(dataCheckinsMap);
+    }
+  }
+  const fetchCheckinsCallBack = useCallback(fetchCheckins, [classCode]);
+
   useEffect(() => {
     // Load checkins
-    async function fetchCheckins() {
-      const { data: dataCheckins, error: errorCheckins } = await supabase
-        .from('checkins_users_details_pivot')
-        .select('*')
-        .eq('classcode', classCode.classcode);
-
-      if (!errorCheckins) {
-        let objTemplate = {};
-        Object.keys(classCode.jsondata).forEach((key) => {
-          objTemplate[key] = null;
-        });
-
-        const dataCheckinsMap = dataCheckins.map((el) => {
-          const jsonDataFilled = { ...objTemplate, ...el.jsondata };
-          const keys = Object.keys(jsonDataFilled);
-          let values = Object.values(jsonDataFilled);
-          let arr = [];
-          for (let i = 0; i < keys.length; i++) {
-            arr.push({
-              code: keys[i],
-              codetimestart: new Date(classCode.jsondata[keys[i]]),
-              timerecord: values[i] ? new Date(values[i]) : null,
-              timerecorddate: values[i]
-                ? format(new Date(values[i]), 'MM/dd HH:mm')
-                : null,
-            });
-          }
-          arr = _.orderBy(arr, ['codetimestart'], ['asc']);
-          return { ...el, checkinarray: arr, jsondatafill: jsonDataFilled };
-        });
-
-        setCheckins(dataCheckinsMap);
-      }
-    }
-
-    if (classCode?.jsondata) fetchCheckins();
-  }, [classCode]);
+    if (classCode?.jsondata) fetchCheckinsCallBack();
+  }, [classCode, fetchCheckinsCallBack]);
 
   function calculateTable(checkins, classCode) {
     let tableBody = [];
@@ -192,6 +193,7 @@ function ClassAttend({ user }) {
     if (!error) {
       alert('Check in!');
       console.log(data);
+      fetchCheckinsCallBack();
     } else {
       console.log(error.message);
     }
@@ -232,7 +234,7 @@ function ClassAttend({ user }) {
       <div
         className={`${
           checkins.length > 0 ? '' : 'hidden'
-        } mt-4 border border-gray-200 p-4 rounded-lg bg-white`}
+        } mt-4 border border-gray-200 p-4 rounded-lg bg-white max-w-full overflow-x-scroll`}
       >
         <div className='flex space-x-1'>
           <button
@@ -257,12 +259,12 @@ function ClassAttend({ user }) {
         </div>
         {checkins.length > 0 ? (
           <>
-            <table className='table-auto my-2'>
+            <table className='table-auto my-2 w-max text-sm sm:text-md'>
               <thead>
                 <tr>
                   {tableHeader.map((el) => (
                     <th
-                      className='border border-gray-300 p-1 bg-gray-400 text-white'
+                      className='border border-gray-300 p-1  bg-gray-400 text-white'
                       key={el.value}
                     >
                       {el.value}

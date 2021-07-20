@@ -10,9 +10,8 @@ function Nav({ user }) {
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.log(error);
-    } else {
-      history.push('/');
     }
+    history.push('/');
   };
 
   function protectedLink(user, JSX) {
@@ -142,8 +141,10 @@ function Nav({ user }) {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <div className={navMobileItemStyle} onClick={handleLogOut}>
-                      <Link to='#'>Logout</Link>
+                    <div className={navMobileItemStyle}>
+                      <Link onClick={handleLogOut} to='#'>
+                        Logout
+                      </Link>
                     </div>
                   )}
                 </Menu.Item>
@@ -157,11 +158,10 @@ function Nav({ user }) {
 
       {/* Secondary Nav */}
       {user ? (
-        <div
-          className={`hidden sm:block ${navItemStyle}`}
-          onClick={handleLogOut}
-        >
-          <Link to='/'>Logout</Link>
+        <div className={`hidden sm:block ${navItemStyle}`}>
+          <Link onClick={handleLogOut} to='#'>
+            Logout
+          </Link>
         </div>
       ) : (
         <div className={navItemStyle}>
