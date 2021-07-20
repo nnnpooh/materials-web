@@ -68,7 +68,7 @@ function Attendance() {
         </div>
       </div>
 
-      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-400 my-4 text-center w-96'>
+      <div className='border rounded-lg p-4 text-4xl text-white bg-blue-400 my-4 text-center w-11/12 sm:w-96'>
         CODE:{code}
       </div>
 
@@ -80,8 +80,8 @@ function Attendance() {
         <></>
       )}
 
-      <div className='border border-gray-200 rounded-lg bg-white p-6'>
-        <div className='flex'>
+      <div className='border border-gray-200 rounded-lg bg-white p-6 max-w-full overflow-x-scroll'>
+        <div className='flex w-full'>
           <button
             className='bg-gray-200 px-2 py-1 rounded-lg mr-1 w-16'
             onClick={() => {
@@ -106,16 +106,22 @@ function Attendance() {
           </button>
         </div>
 
-        <div className='grid grid-cols-4 gap-x-3 gap-y-1 mt-4'>
+        <div
+          className='grid gap-x-3 gap-y-1 mt-4'
+          style={{
+            gridTemplateColumns:
+              'minmax(auto, 1fr) minmax(200px, 2fr) minmax(auto, 1fr)',
+          }}
+        >
           {studentListSorted.map((el) => {
             return (
               <div key={el.line_id} className='contents'>
-                <div className='col-span-1'>{el.cmu_id}</div>
-                <div className='col-span-2 font-bold'>
+                <div className='col-span-1 '>{el.cmu_id}</div>
+                <div className='col-span-1 font-bold text-center'>
                   {el.firstname} {el.lastname}
                 </div>
-                <div className='col-span-1'>
-                  <span className='bg-gray-400 text-white text-sm rounded-full px-2  w-14'>
+                <div className='col-span-1 text-center'>
+                  <span className='bg-gray-400 text-white text-sm rounded-full px-2 w-14'>
                     {format(el.timerecord, 'HH:mm')}
                   </span>
                 </div>
