@@ -11,9 +11,9 @@ function CodeForm(props) {
   const [dataValid, setDataValid] = useState(false);
   const [classInfo, setClassInfo] = useState({
     classId: "259103",
-    yearStr: "2565",
-    semester: "2",
-    section: "003",
+    yearStr: "2566",
+    semester: "1",
+    section: "000",
     graded: true,
     timeStart: format(dateNow, "yyyy-MM-dd HH:mm:ss"),
     timeEnd: format(dateNow, "yyyy-MM-dd HH:mm:ss"),
